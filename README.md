@@ -1,7 +1,8 @@
-# Hierarchical Physics-Encoded State-Space Hybrid Dynamics for Contact Force Sensing of Serial Manipulators Using Intrinsic Sensors
+$content = @'
+# Intrinsic-Sensor-Based Contact Force Measurement for Serial Manipulators Using a Physics-Encoded Hybrid Dynamics Model
 
-Reference code and processed data for the manuscript submitted to **Mechatronics**
-(Manuscript ID: **MECH-D-26-01142**).
+Reference code and processed data for the manuscript submitted to
+**Measurement Science and Technology**.
 
 This repository currently contains the minimal reproducibility package for the
 cross-workload ablation:
@@ -17,12 +18,16 @@ cross-workload ablation:
 
 ## Overview
 
-The method decomposes the joint-torque residual of a serial manipulator into
+The method measures end-effector contact force from intrinsic sensors by
+decomposing the joint-torque residual of a serial manipulator into
 
 - a gravity branch with sine/cosine input bases;
 - a Coriolis branch with quadratic velocity products;
 - a unified dissipative branch with two internal states and a shared gate,
   representing friction and hysteresis jointly.
+
+The residual model is embedded in a momentum observer, and payload changes are
+handled by updating only the gravity branch and a zero-initialized adapter.
 
 The ablation script compares the full model with four variants:
 
@@ -109,14 +114,20 @@ cross_workload_innovation_ablation.png
 - The C2 branch advances both the hysteresis state and the friction state at every
   time step.
 
+## Scope
+
+This package supports the cross-workload ablation in the manuscript. It does not
+reproduce the complete contact-force measurement experiment, which requires the
+UR5 platform and the ATI force/torque sensor described in the paper.
+
 ## Citation
 
 If you use this code or data, please cite the manuscript:
 
 ```text
-W. Huang, Y. Lin, W. Gan, H. Min, Hierarchical Physics-Encoded State-Space
-Hybrid Dynamics for Contact Force Sensing of Serial Manipulators Using
-Intrinsic Sensors, Mechatronics (2026), manuscript MECH-D-26-01142.
+W. Huang, Y. Lin, W. Gan, H. Min, Intrinsic-Sensor-Based Contact Force
+Measurement for Serial Manipulators Using a Physics-Encoded Hybrid Dynamics
+Model, Measurement Science and Technology (2026).
 ```
 
 ## Contact
@@ -125,3 +136,7 @@ Intrinsic Sensors, Mechatronics (2026), manuscript MECH-D-26-01142.
 - Huasong Min: mhuasong@wust.edu.cn
 
 Wuhan University of Science and Technology, Wuhan 430080, Hubei, China.
+'@
+
+Set-Content -Path "README.md" -Value $content -Encoding utf8
+Write-Host "README.md generated."
